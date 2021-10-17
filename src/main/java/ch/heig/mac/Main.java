@@ -37,7 +37,7 @@ public class Main {
         //requests.bestMoviesOfActor("Al Pacino").forEach(System.out::println);
 
         //  5)
-        requests.plentifulDirectors().forEach(System.out::println);
+        //requests.plentifulDirectors().forEach(System.out::println);
 
         // 6)
         //requests.confusingMovies().forEach(System.out::println);
@@ -52,5 +52,8 @@ public class Main {
 
         // 8)
         //requests.removeEarlyProjection("");
+
+        //9)
+        requests.nightMovies().forEach(System.out::println);
     }
 }

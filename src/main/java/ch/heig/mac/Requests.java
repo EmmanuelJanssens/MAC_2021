@@ -145,13 +145,20 @@ public class Requests {
     }
 
     public List<JsonObject> nightMovies() {
-        throw new UnsupportedOperationException("Not implemented, yet");
-        /*
-        SELECT s.movieId AS movie_id, s.hourBegin
-        FROM `mflix-sample`.`_default`.`theaters`
-        UNNEST theaters.schedule AS s
-        WHERE s.hourBegin > '18:00:00'
-         */
+
+        //Retourner les films qui sont projeté uniquement après 18h
+        String query =
+                "SELECT  movies._id as movie_id,movies.title\n" +
+                        "FROM `mflix-sample`._default.movies as movies\n" +
+                        "JOIN \n" +
+                        "(SELECT  sched.movieId\n" +
+                        "FROM `mflix-sample`._default.theaters \n" +
+                        "USE INDEX(theater_movie_id)\n" +
+                        "UNNEST theaters.schedule AS sched \n" +
+                        "WHERE sched.hourBegin > \"18:00:00\") AS result\n" +
+                        "ON result.movieId = movies._id";
+        QueryResult result = cluster.query(query);
+        return result.rowsAsObject();
     }
 
 

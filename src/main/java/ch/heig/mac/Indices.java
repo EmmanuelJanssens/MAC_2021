@@ -14,10 +14,16 @@ public class Indices {
             // Map.entry(<question num>, List.of("CREATE INDEX ...", "CREATE INDEX ..."))
             Map.entry(7,
                     List.of(
-                    "CREATE INDEX adv_movie_id ON " +
-                    "`default`:`mflix-sample`.`_default`.`comments`" +
-                    "(`movie_id`)\n" +
-                    "\n")));
+                    "CREATE INDEX comment_movie_id ON " +
+                    "`mflix-sample`._default.comments" +
+                    "(movie_id)")),
+                    Map.entry(
+                    9,
+                    List.of(
+                            "CREATE INDEX theater_movie_id " +
+                                    "ON `mflix-sample`._default.theaters " +
+                                    "( ARRAY n.movieId FOR n IN schedule END)"
+                    )));
 
     public Indices(Cluster cluster) {
         this.cluster = cluster;
